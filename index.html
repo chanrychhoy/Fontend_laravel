@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <section class="container" >
+            <div  class="card" v-for="book of books">
+                <div class="card-title">
+                    <h1>{{book.title}}</h1>
+                </div>
+                <div class="card-body">
+                    <p>{{book.body}}</p>
+                </div>
+                <div class="card-footer">
+                    <p>{{book.created_at}}</p>
+                    <p>{{book.updated_at}}</p>
+                    <button type="button">delete</button>
+                    <button type="button" >edit</button>
+                </div>
+           
+            </div>         
+         </section>
+    </div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+//vue 
+new Vue({
+    el:'#app',
+    data:{
+        books:[],
+        // user_id:null,
+        // title:'',
+        // description:'',
+        // status:null,
+        // updateId:''
+    },
+
+    methods:{
+        getBooks(){
+            let url='http://localhost:3000/api/books';
+            axios.get(url).then(response => {
+                // console.log(response.data.data)
+                this.books = response.data.data;
+            });
+
+        },
+
+    },
+
+    mounted() {
+        this.getBooks();
+    },
+    
+});
+</script>
+</html>
